@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:security="http://www.springframework.org/schema/security"
+        xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+ 
+    <security:http pattern="/public/**" security="none"/>
+    <security:http pattern="/forbidden" security="none"/>
+ 
+    <security:http pattern="/api/**" entry-point-ref="appAuthEntryPoint" authentication-manager-ref="apiAuthManager" use-expressions="true">
+        <security:intercept-url pattern="/rs/secure/**" access="hasRole('APIUSER')" />
+    </security:http>
+ 
+    <security:http pattern="/**" access-denied-page="/forbidden" authentication-manager-ref="appAuthManager" auto-config="true" use-expressions="true">
+        <security:intercept-url pattern="/secure/**" access="hasRole('WEBUSER')"/>
+        <security:form-login default-target-url="/secure"/>
+    </security:http>
+ 
+    <security:authentication-manager id="appAuthManager">
+        <security:authentication-provider user-service-ref="userIdentityService"></security:authentication-provider>
+    </security:authentication-manager>
+ 
+    <security:authentication-manager id="apiAuthManager">
+        <security:authentication-provider user-service-ref="userIdentityService"></security:authentication-provider>
+    </security:authentication-manager>
+ 
+    <bean id="appAuthEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"></bean>
+ 
+    <bean id="userIdentityService" class="com.marketplace.app.security.UserIdentityService"></bean>
+ 
+</beans>

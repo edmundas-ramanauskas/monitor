@@ -1,0 +1,44 @@
+<div class="row" ng-controller="MonitorDemo">
+    <div class="col-lg-12">
+        <h4>Site monitor</h4>
+    </div>
+    <div class="col-lg-12">
+        <div class="well">
+            <form ng-submit="checkStatus()" class="">
+                <div class="form-group">
+                    <div class="input-group">
+                        <input type="text" ng-model="link" class="form-control" placeholder="Enter address of your site (eg: www.google.com)">
+                        <span class="input-group-btn">
+                            <button class="btn btn-danger" type="button" ng-click="checkStatus()">
+                                <span class="glyphicon glyphicon-screenshot"></span> Check status
+                            </button>
+                        </span>
+                    </div>
+                </div>
+            </form>
+            <div class="panel panel-default animate-fade" ng-if="site">
+                <table class="table table-responsive">
+                    <tr>
+                        <td class="" width="70%">
+                            <span class="glyphicon glyphicon-link"></span>
+                            {{site.url}}
+                        </td>
+                        <td class="">
+                            <span class="glyphicon glyphicon-ok-circle" ng-show="site.state"></span>
+                            <span class="glyphicon glyphicon-remove-circle" ng-hide="site.state"></span>
+                            <span ng-show="site.status.code">{{site.status.code}} </span>{{site.status.text}}
+                        </td>
+                        <td class="">
+                            <span class="glyphicon glyphicon-time"></span>
+                            {{site.status.time}}s
+                        </td>
+                        <td class="">
+                            <span class="glyphicon glyphicon-floppy-disk"></span>
+                            <a href="#/monitor/create">Monitor</a>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>   
+</div>
