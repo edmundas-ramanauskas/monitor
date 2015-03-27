@@ -2,17 +2,16 @@
 <beans  xmlns="http://www.springframework.org/schema/beans"
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xmlns:context="http://www.springframework.org/schema/context"
-        xsi:schemaLocation="http://www.springframework.org/schema/beans
-            http://www.springframework.org/schema/beans/spring-beans.xsd
-            http://www.springframework.org/schema/context
-            http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+        xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
     
     <context:property-placeholder location="classpath:application.properties"/>
     
     <import resource="spring-security.xml"/>
     <import resource="spring-servlets.xml"/>
-    <import resource="camel-config.xml"/>
-    <import resource="jpa-config.xml"/>
-    <import resource="cxf-config.xml"/>
+    <import resource="spring-camel.xml"/>
+    <import resource="spring-persistence.xml"/>
+    <import resource="spring-jaxrs.xml"/>
 
 </beans>

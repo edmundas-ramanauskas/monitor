@@ -28,6 +28,6 @@
  
     <bean id="appAuthEntryPoint" class="org.springframework.security.web.authentication.Http403ForbiddenEntryPoint"></bean>
  
-    <bean id="userIdentityService" class="com.marketplace.app.security.UserIdentityService"></bean>
+    <bean id="userIdentityService" class="com.marketplace.monitor.security.UserIdentityService"></bean>
  
 </beans>

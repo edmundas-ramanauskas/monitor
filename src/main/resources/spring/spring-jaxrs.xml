@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans  xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:cxf="http://cxf.apache.org/core"
+        xmlns:jaxrs="http://cxf.apache.org/jaxrs"
+        xsi:schemaLocation="
+            http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+            http://cxf.apache.org/core http://cxf.apache.org/schemas/core.xsd
+            http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd">
+    
+    <import resource="classpath:META-INF/cxf/cxf.xml"/>
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
+    
+    <bean id="webClientService" class="com.marketplace.monitor.services.impl.WebClientServiceImpl"></bean>
+       
+    <bean id="publicApi" class="com.marketplace.monitor.api.impl.PublicApiImpl">
+        <property name="webClientService" ref="webClientService"/>
+    </bean>
+
+    <bean id="jsonProvider" class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider"/>
+	
+    <jaxrs:server id="publicRestApi" address="/rs">
+        <jaxrs:serviceBeans>
+            <ref bean="publicApi"/>
+        </jaxrs:serviceBeans>
+        <jaxrs:providers>
+            <ref bean="jsonProvider"/>
+        </jaxrs:providers>
+    </jaxrs:server>
+</beans>
