@@ -3,9 +3,12 @@ package com.marketplace.monitor.domain.entities;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 /**
  *
@@ -19,6 +22,9 @@ public class Monitor extends AbstractEntity implements Serializable {
     private long monitorId;
     @Column
     private String monitorName;
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "taskDefId")
+    private TaskDef taskDef;
 
     public long getMonitorId() {
         return monitorId;
@@ -34,5 +40,13 @@ public class Monitor extends AbstractEntity implements Serializable {
 
     public void setMonitorName(String monitorName) {
         this.monitorName = monitorName;
+    }
+
+    public TaskDef getTaskDef() {
+        return taskDef;
+    }
+
+    public void setTaskDef(TaskDef taskDef) {
+        this.taskDef = taskDef;
     }
 }

@@ -20,9 +20,9 @@ public class ActionDef extends AbstractEntity implements Serializable {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long actionDefId;
     @Column
-    private String name;
-    @ManyToMany(mappedBy="actions")
-    private List<TaskDef> tasks;
+    private String actionName;
+    @ManyToMany(mappedBy="actionDefs")
+    private List<TaskDef> taskDefs;
 
     public long getActionDefId() {
         return actionDefId;
@@ -32,19 +32,19 @@ public class ActionDef extends AbstractEntity implements Serializable {
         this.actionDefId = actionDefId;
     }
 
-    public String getName() {
-        return name;
+    public String getActionName() {
+        return actionName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setActionName(String actionName) {
+        this.actionName = actionName;
     }
 
-    public List<TaskDef> getTasks() {
-        return tasks;
+    public List<TaskDef> getTaskDefs() {
+        return taskDefs;
     }
 
-    public void setTasks(List<TaskDef> tasks) {
-        this.tasks = tasks;
+    public void setTaskDefs(List<TaskDef> taskDefs) {
+        this.taskDefs = taskDefs;
     }
 }

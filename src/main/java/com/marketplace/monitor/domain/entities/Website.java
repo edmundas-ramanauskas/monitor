@@ -3,9 +3,11 @@ package com.marketplace.monitor.domain.entities;
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 /**
@@ -20,7 +22,8 @@ public class Website extends AbstractEntity implements Serializable {
     private long websiteId;
     @Column
     private String address;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "monitorId")
     private Monitor monitor;
 
     public long getWebsiteId() {

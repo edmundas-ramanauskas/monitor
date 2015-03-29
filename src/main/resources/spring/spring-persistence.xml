@@ -33,7 +33,7 @@
         <property name="packagesToScan" value="com.marketplace.monitor.domain.entities" />
         <property name="jpaVendorAdapter">
             <bean id="hibernateJpaVendorAdapter" class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
-                <property name="showSql" value="false" />
+                <property name="showSql" value="true" />
                 <property name="databasePlatform" value="org.hibernate.dialect.MySQL5Dialect" />
             </bean>
         </property>

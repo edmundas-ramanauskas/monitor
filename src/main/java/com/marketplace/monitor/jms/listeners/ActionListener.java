@@ -1,9 +1,10 @@
 package com.marketplace.monitor.jms.listeners;
 
+import com.marketplace.monitor.jms.messages.ActionMessage;
 import javax.jms.JMSException;
 import javax.jms.Message;
 import javax.jms.MessageListener;
-import javax.jms.TextMessage;
+import javax.jms.ObjectMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -18,8 +19,8 @@ public class ActionListener implements MessageListener {
     @Override
     public void onMessage(Message message) {
         try {
-            TextMessage event = (TextMessage) message;
-            logger.info(event.getText() + " " + Thread.currentThread().getName());
+            ActionMessage actionMessage = (ActionMessage) ((ObjectMessage) message).getObject();
+            logger.info(actionMessage.getData().getClass().toString());
         } catch (JMSException ex) {
             logger.error("Error reading message", ex);
         }

@@ -5,10 +5,10 @@ INSERT INTO `TaskActionMap` (`taskActionMapId`, `taskDefId`, `actionDefId`, `tas
 (1,	1,	1,	1,	'2015-01-01 00:00:00',	'initial');
 
 INSERT INTO `TaskDef` (`taskDefId`, `taskName`, `lastUpdated`, `lastUpdatedBy`) VALUES
-(1,	'Http monitor',	'2015-01-01 00:00:00',	'initial');
+(1,	'Http monitor',    '2015-01-01 00:00:00',	'initial');
 
-INSERT INTO `Monitor` (`monitorId`, `monitorName`, `lastUpdated`, `lastUpdatedBy`) VALUES
-(1,	'http',	'2015-01-01 00:00:00',	'initial');
+INSERT INTO `Monitor` (`monitorId`, `monitorName`, `taskDefId`, `lastUpdated`, `lastUpdatedBy`) VALUES
+(1,	'http',	1,  '2015-01-01 00:00:00',	'initial');
 
 INSERT INTO `Website` (`websiteId`, `address`, `monitorId`, `lastUpdated`, `lastUpdatedBy`) VALUES
 (1,	'google.com',	'1',	'2015-01-01 00:00:00',	'initial');

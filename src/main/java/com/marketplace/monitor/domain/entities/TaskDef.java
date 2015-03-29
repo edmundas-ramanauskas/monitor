@@ -4,9 +4,11 @@ import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 
@@ -22,9 +24,11 @@ public class TaskDef extends AbstractEntity implements Serializable {
     private long taskDefId;
     @Column
     private String taskName;
-    @ManyToMany
-    @JoinTable(name="TaskActionMap")
-    private List<ActionDef> actions;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name="TaskActionMap",
+            joinColumns={@JoinColumn(name="taskDefId", referencedColumnName="taskDefId")},
+            inverseJoinColumns={@JoinColumn(name="actionDefId", referencedColumnName="actionDefId")})
+    private List<ActionDef> actionDefs;
 
     public long getTaskDefId() {
         return taskDefId;
@@ -42,11 +46,11 @@ public class TaskDef extends AbstractEntity implements Serializable {
         this.taskName = taskName;
     }
 
-    public List<ActionDef> getActions() {
-        return actions;
+    public List<ActionDef> getActionDefs() {
+        return actionDefs;
     }
 
-    public void setActions(List<ActionDef> actions) {
-        this.actions = actions;
+    public void setActionDefs(List<ActionDef> actionDefs) {
+        this.actionDefs = actionDefs;
     }
 }

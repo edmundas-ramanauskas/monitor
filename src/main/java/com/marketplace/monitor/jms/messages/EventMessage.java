@@ -6,15 +6,23 @@ import java.io.Serializable;
  *
  * @author edmundas
  */
-public class EventMessage implements Serializable {
+public class EventMessage extends AbstractMessage implements Serializable {
     
-    private final String details;
+    private EventType eventType;
     
-    public EventMessage(String details) {
-        this.details = details;
+    public EventMessage() {
+        
     }
     
-    public String getDetails() {
-        return details;
+    public EventMessage(EventType eventType) {
+        this.eventType = eventType;
+    }
+    
+    public EventType getEventType() {
+        return eventType;
+    }
+    
+    public enum EventType {
+        INIT_MONITORING_TASK;
     }
 }

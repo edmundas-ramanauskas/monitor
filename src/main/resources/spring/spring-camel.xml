@@ -8,30 +8,30 @@
        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd">
 
+    <!--<bean id="bridgePropertyPlaceholder" class="org.apache.camel.spring.spi.BridgePropertyPlaceholderConfigurer"/>-->
+    
+    <bean id="appRouteBuilder" class="com.marketplace.monitor.camel.AppRouteBuilder">
+        <property name="eventProducer" ref="eventProducer"/>
+    </bean>
+    
     <camelContext xmlns="http://camel.apache.org/schema/spring">
- 
+        
         <propertyPlaceholder id="properties" location="classpath:application.properties"/>
- 
-        <route id="timerToInRoute">
-            <from uri="timer:fireEvent?period=60s"/>
-            <transform>
-                <simple>${date:now:yyyy-MM-dd HH:mm:ss}</simple>
-            </transform>
-            <to uri="activemq:queue:{{app.monitor.queue.system.event.in}}"/>
-        </route>
+        
+        <routeBuilder ref="appRouteBuilder"/>
  
         <route id="systemEventQueueIn">
-            <from uri="activemq:queue:{{app.monitor.queue.system.event.in}}"/>
+            <from uri="activemq:queue:{{app.queue.system.event.in}}"/>
             <to uri="bean:eventListener"/>
         </route>
  
         <route id="systemTaskQueueIn">
-            <from uri="activemq:queue:{{app.monitor.queue.system.task.in}}?concurrentConsumers=5"/>
+            <from uri="activemq:queue:{{app.queue.system.task.in}}?concurrentConsumers=1"/>
             <to uri="bean:taskListener"/>
         </route>
  
         <route id="systemActionQueueIn">
-            <from uri="activemq:queue:{{app.monitor.queue.system.action.in}}?concurrentConsumers=5"/>
+            <from uri="activemq:queue:{{app.queue.system.action.in}}"/>
             <to uri="bean:actionListener"/>
         </route>
  
@@ -50,6 +50,8 @@
     <bean id="producerTemplate" class="org.springframework.jms.core.JmsTemplate">
         <property name="connectionFactory" ref="jmsFactory"></property>
     </bean>
+    
+    <bean id="eventProducer" class="com.marketplace.monitor.camel.EventProducer"></bean>
  
     <bean id="eventListener" class="com.marketplace.monitor.jms.listeners.EventListener">
         <property name="producerTemplate" ref="producerTemplate"/>

@@ -2,6 +2,7 @@ package com.marketplace.monitor.domain.entities;
 
 import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -9,13 +10,14 @@ import javax.persistence.TemporalType;
  *
  * @author edmundas
  */
-public class AbstractEntity {
+@MappedSuperclass
+public abstract class AbstractEntity {
 
     @Column
     @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdated;
+    private Date lastUpdated = new Date();
     @Column
-    private String lastUpdatedBy;
+    private String lastUpdatedBy = "system";
 
     public Date getLastUpdated() {
         return lastUpdated;
